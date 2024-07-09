@@ -3,7 +3,6 @@ package com.Inventory.System.notifications.TRA.Model;
 
 import jakarta.persistence.Entity;
 import lombok.Data;
-
 import java.util.Date;
 
 @Entity
@@ -17,7 +16,6 @@ public class ProductDetails extends BaseEntity{
     String color;
     String description; //This is explaining what the product for
     Double price;
-
 
 
 }
