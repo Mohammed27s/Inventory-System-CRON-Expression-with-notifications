@@ -9,6 +9,7 @@ import java.util.Date;
 @Data
 public class ProductDetails extends BaseEntity{
 
+
     String name;
     String brandName;
     Date expiredate;
