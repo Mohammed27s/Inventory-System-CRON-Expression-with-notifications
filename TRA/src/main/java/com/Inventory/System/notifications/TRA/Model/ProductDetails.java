@@ -17,6 +17,6 @@ public class ProductDetails extends BaseEntity{
     String color;
     String description; //This is explaining what the product for
     Double price;
-
+    String countryMade; //This is for the country which the product has been created
 
 }

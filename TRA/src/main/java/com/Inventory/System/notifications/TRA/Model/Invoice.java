@@ -21,6 +21,7 @@ public class Invoice extends BaseEntity {
     PaymentMethod paymentMethod;
     @OneToMany
     List<Product> products; //This store all the exiting products
+    Double totalAmount;
 
 
 }
