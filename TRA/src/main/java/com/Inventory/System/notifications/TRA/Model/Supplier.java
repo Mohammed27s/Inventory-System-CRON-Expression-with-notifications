@@ -15,7 +15,8 @@ public class Supplier extends BaseEntity{
     String address;
     @OneToOne
     SupplierDetails supplierDetails; // This is contains many supplier Details information
-
+    @OneToMany
+    List<Order> orders;
 
     
 }

@@ -8,11 +8,13 @@ import lombok.Data;
 @Entity
 public class Inventory extends BaseEntity {
 
+
     ProductDetails productDetails;
+    Product products;
     Double unitPrice;
     Integer quantityInStock;
     Integer thresholdForLowStockAlert;
     SupplierDetails supplierDetails;
-
+    String location;
 
 }
