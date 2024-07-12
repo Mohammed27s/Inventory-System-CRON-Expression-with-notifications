@@ -9,52 +9,61 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
-
 import java.io.File;
 
+//This is a mailingService service
 @Service
-public class MailingService {
+public class EmailService {
 
     @Autowired
     private JavaMailSender mailSender;
+    @Value("${spring.mail.username}")
+    String sender;
 
-    @Value("${email_secret}") //TODO change this token name and add it in enviorment virabiles
-    private String senderEmail;
+    public String sendSimpleMail(String toEmail, String fromEmail, String emailBody, String subject){
 
-    // Method to send a simple text email
-    public String sendSimpleMail() {
-        try {
+        try{
             SimpleMailMessage mailMessage = new SimpleMailMessage();
-            mailMessage.setFrom(sender);
-            mailMessage.setTo("taibaalmujaini@gmail.com");
-            mailMessage.setText("Hi");
-            mailMessage.setSubject("Testing email");
+            mailMessage.setFrom(fromEmail);
+            mailMessage.setTo(toEmail);
+            mailMessage.setText(emailBody);
+            mailMessage.setSubject(subject);
             mailSender.send(mailMessage);
-            return "Success";
-        } catch (Exception e) {
-            return "Error";
+            return "The email has been send successfully ";
+        } catch (Exception e){
+
+            return "Failed to send the Email";
         }
+
     }
 
-    // Method to send an email with attachment
-    public String sendMailWithAttachment() {
+
+    public String sendMailWithAttachment(){
+
         MimeMessage mimeMessage = mailSender.createMimeMessage();
         MimeMessageHelper mimeMessageHelper;
-        try {
+
+
+        try{
+
             mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom(sender);
-            mimeMessageHelper.setTo("taibaalmujaini@gmail.com");
-            mimeMessageHelper.setText("Hello Email Body");
-            mimeMessageHelper.setSubject("This is the subject");
-
-            // Example of attaching a file from the file system
+            mimeMessageHelper.setTo("mohd.com25@gmail.com");
+            mimeMessageHelper.setText("Dear HR Manager" +
+                    ", I want vacation before Eid for one week, " +
+                    "sincerely, " +
+                    "Mohammed Salim");
+            mimeMessageHelper.setSubject("Eid Vacation");
             FileSystemResource file = new FileSystemResource(new File("Path to local file"));
             mimeMessageHelper.addAttachment(file.getFilename(), file);
-
             mailSender.send(mimeMessage);
-            return "Success";
-        } catch (MessagingException e) {
+            return "Your email has been sent successfully";
+
+        } catch (MessagingException e){
             return "Error";
         }
+
+
     }
+
 }

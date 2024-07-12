@@ -1,10 +1,10 @@
 package com.Inventory.System.notifications.TRA.Services;
 
-import com.TRA.tra24Springboot.DTO.OrderDTO;
-import com.TRA.tra24Springboot.Models.*;
-import com.TRA.tra24Springboot.Repositories.OrderRepository;
-import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
-import com.TRA.tra24Springboot.Repositories.ProductRepository;
+import com.Inventory.System.notifications.TRA.DTO.OrderDTO;
+import com.Inventory.System.notifications.TRA.Model.*;
+import com.Inventory.System.notifications.TRA.Repository.OrderRepo;
+import com.Inventory.System.notifications.TRA.Repository.ProductDetailsRepo;
+import com.Inventory.System.notifications.TRA.Repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,13 +17,13 @@ import java.util.UUID;
 public class OrderService {
 
     @Autowired
-    OrderRepository orderRepository;
+    OrderRepo orderRepo;
 
     @Autowired
-    ProductDetailsRepository productDetailsRepository;
+    ProductDetailsRepo productDetailsRepo;
 
     @Autowired
-    ProductRepository productRepository;
+    ProductRepo productRepo;
 
     // Method to create an order
     public Order createOrder(Order order) {
@@ -34,10 +34,10 @@ public class OrderService {
         productDetails.setColor("Green");
         productDetails.setSize("Small");
         productDetails.setPrice(10d);
-        productDetails.setCountryOfOrigin("USA");
+        productDetails.setCountryMade("USA");
         productDetails.setDescription("Apple Product");
         productDetails.setCreatedDate(new Date());
-        productDetails = productDetailsRepository.save(productDetails);
+        productDetails = productDetailsRepo.save(productDetails);
 
         // Configure the product
         product.setProductDetails(productDetails);
@@ -46,7 +46,7 @@ public class OrderService {
         product.setQuantity(1);
         product.setIsActive(Boolean.TRUE);
         product.setCreatedDate(new Date());
-        product = productRepository.save(product);
+        product = productRepo.save(product);
 
         // Configure the order
         order.setProductsOrdered(Arrays.asList(product));
@@ -59,18 +59,18 @@ public class OrderService {
         order.setPaymentType(PaymentType.BANK_TRANSFER);
         order.setDueDate(new Date());
 
-        return orderRepository.save(order);
+        return orderRepo.save(order);
     }
 
     // Method to cancel an order
     public String cancelOrder(Integer id) {
-        Order order = orderRepository.getOrderById(id);
+        Order order = orderRepo.getOrderById(id);
         if (order != null && order.getStatus() == OrderStatus.IN_PROGRESS) {
             order.setStatus(OrderStatus.CANCELED);
             if (order.getPaymentStatus() == PaymentStatus.PAID) {
                 order.setPaymentStatus(PaymentStatus.REJECTED);
             }
-            orderRepository.save(order);
+            orderRepo.save(order);
             return "Order canceled.";
         } else {
             return "Unable to cancel order.";
@@ -79,24 +79,24 @@ public class OrderService {
 
     // Method to update an order
     public String updateOrder(Integer id) throws Exception {
-        Order order = orderRepository.getOrderById(id);
+        Order order = orderRepo.getOrderById(id);
         if (order == null) {
             throw new Exception("Order not found with ID: " + id);
         }
         // Perform update operations if needed
-        orderRepository.save(order);
+        orderRepo.save(order);
         return "Success";
     }
 
     // Method to retrieve all orders and convert them to DTOs
     public List<OrderDTO> getOrders() {
-        List<Order> orders = orderRepository.findAll();
+        List<Order> orders = orderRepo.findAll();
         return OrderDTO.convertToDTO(orders);
     }
 
     // Method to retrieve an order by its ID
     public Order getOrdersById(Integer id) throws Exception {
-        Order order = orderRepository.getOrderById(id);
+        Order order = orderRepo.getOrderById(id);
         if (order == null) {
             throw new Exception("Order not found with ID: " + id);
         }
@@ -105,7 +105,7 @@ public class OrderService {
 
     // Method to retrieve orders by category name
     public List<Order> getOrdersByCategoryName(String categoryName) throws Exception {
-        List<Order> orders = orderRepository.getOrderByCategoryName(categoryName);
+        List<Order> orders = orderRepo.getOrderByCategoryName(categoryName);
         if (orders.isEmpty()) {
             throw new Exception("No orders found with the category name: " + categoryName);
         }
@@ -114,7 +114,7 @@ public class OrderService {
 
     // Method to retrieve orders by order status
     public List<Order> getOrdersByOrderStatus(OrderStatus status) throws Exception {
-        List<Order> orders = orderRepository.getOrderByOrderStatus(status);
+        List<Order> orders = orderRepo.getOrderByOrderStatus(status);
         if (orders.isEmpty()) {
             throw new Exception("No orders found with the order status: " + status);
         }
@@ -123,11 +123,11 @@ public class OrderService {
 
     // Method to retrieve orders by payment status
     public List<Order> getOrdersByPaymentStatus(PaymentStatus paymentStatus) {
-        return orderRepository.getOrderByPaymentStatus(paymentStatus);
+        return orderRepo.getOrderByPaymentStatus(paymentStatus);
     }
 
     // Method to retrieve orders by payment type
     public List<Order> getOrdersByPaymentType(PaymentType paymentType) {
-        return orderRepository.getOrderByPaymentType(paymentType);
+        return orderRepo.getOrderByPaymentType(paymentType);
     }
 }

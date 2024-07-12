@@ -12,8 +12,7 @@ import java.util.List;
 @Data
 public class SupplierDetails extends BaseEntity{
 
-    @OneToOne
-    ContactDetails contactDetails; //this is save Contact Details for Supplier
+
     String websiteURL; //This is the website link
     String bankDetails; //This is for Information for financial transactions (like bank statement)
     String Notes; //This is a Note for supplier he can add for the customer

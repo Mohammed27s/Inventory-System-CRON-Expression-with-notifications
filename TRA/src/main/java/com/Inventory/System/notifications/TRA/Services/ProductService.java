@@ -1,11 +1,11 @@
 package com.Inventory.System.notifications.TRA.Services;
 
 
-import com.TRA.tra24Springboot.DTO.ProductDTO;
-import com.TRA.tra24Springboot.Models.Product;
-import com.TRA.tra24Springboot.Models.ProductDetails;
-import com.TRA.tra24Springboot.Repositories.ProductDetailsRepository;
-import com.TRA.tra24Springboot.Repositories.ProductRepository;
+import com.Inventory.System.notifications.TRA.DTO.ProductDTO;
+import com.Inventory.System.notifications.TRA.Model.Product;
+import com.Inventory.System.notifications.TRA.Model.ProductDetails;
+import com.Inventory.System.notifications.TRA.Repository.ProductDetailsRepo;
+import com.Inventory.System.notifications.TRA.Repository.ProductRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,10 +18,10 @@ import java.util.UUID;
 public class ProductService {
 
     @Autowired
-    private ProductRepository productRepository;
+    private ProductRepo productRepo;
 
     @Autowired
-    private ProductDetailsRepository productDetailsRepository;
+    private ProductDetailsRepo productDetailsRepo;
 
     // Method to add a new product
     public Product addProduct(Product product) {
@@ -31,10 +31,10 @@ public class ProductService {
         productDetails.setColor("Green");
         productDetails.setSize("Small");
         productDetails.setPrice(10d);
-        productDetails.setCountryOfOrigin("USA");
+        productDetails.setCountryMade("USA");
         productDetails.setDescription("Apple Product");
 
-        productDetails = productDetailsRepository.save(productDetails);
+        productDetails = productDetailsRepo.save(productDetails);
         product.setProductDetails(productDetails);
         product.setSku(UUID.randomUUID());
         product.setCategory("Electronics");
@@ -43,37 +43,37 @@ public class ProductService {
         product.setCreatedDate(new Date());
 
         // Save and return the created product
-        return productRepository.save(product);
+        return productRepo.save(product);
     }
 
     // Method to delete a product by ID
     public String deleteProduct(Integer id) {
-        Product product = productRepository.getById(id);
+        Product product = productRepo.getById(id);
         product.setIsActive(Boolean.FALSE);
-        productRepository.save(product);
+        productRepo.save(product);
         return "Success";
     }
 
     // Method to update product quantity by ID
     public String updateProduct(Integer id, Integer quantity) {
-        Product product = productRepository.getProductById(id);
+        Product product = productRepo.getProductById(id);
         product.setQuantity(quantity);
         product.setUpdatedDate(new Date());
 
         // Save and return success message
-        productRepository.save(product);
+        productRepo.save(product);
         return "Updated Successfully";
     }
 
     // Method to fetch all products and convert to DTOs
     public List<ProductDTO> getProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepo.findAll();
         return ProductDTO.convertToDTO(products);
     }
 
     // Method to fetch products by name
     public List<Product> getProductsByName(String name) throws Exception {
-        List<Product> products = productRepository.getProductByName(name);
+        List<Product> products = productRepo.getProductByName(name);
         if (products.isEmpty()) {
             throw new Exception("No products found with the name: " + name);
         }
@@ -83,7 +83,7 @@ public class ProductService {
     // Methods to fetch products by various criteria (color, size, price, etc.)
     // Similar exception handling for each method
     public List<Product> getProductsByColor(String color) throws Exception {
-        List<Product> products = productRepository.getProductByColor(color);
+        List<Product> products = productRepo.getProductByColor(color);
         if (products.isEmpty()) {
             throw new Exception("No products found with the color: " + color);
         }
@@ -91,15 +91,15 @@ public class ProductService {
     }
 
     public List<Product> getProductsBySize(String size) throws Exception {
-        List<Product> products = productRepository.getProductBySize(size);
+        List<Product> products = productRepo.getProductBySize(size);
         if (products.isEmpty()) {
             throw new Exception("No products found with the size: " + size);
         }
         return products;
     }
 
-    public Product getProducstById(Integer id) throws Exception {
-        Product product = productRepository.getProductById(id);
+    public Product getProductById(Integer id) throws Exception {
+        Product product = productRepo.getProductById(id);
         if (product == null) {
             throw new Exception("No product found with ID: " + id);
         }
@@ -107,7 +107,7 @@ public class ProductService {
     }
 
     public List<Product> getProductsByPrice(Double price) throws Exception {
-        List<Product> products = productRepository.getProductByPrice(price);
+        List<Product> products = productRepo.getProductByPrice(price);
         if (products.isEmpty()) {
             throw new Exception("No products found with the price: " + price);
         }
@@ -115,7 +115,7 @@ public class ProductService {
     }
 
     public List<Product> getProductsByCountryOfOrigin(String country) throws Exception {
-        List<Product> products = productRepository.getProductByCountryOfOrigin(country);
+        List<Product> products = productRepo.getProductByCountryOfOrigin(country);
         if (products.isEmpty()) {
             throw new Exception("No products found from the country: " + country);
         }
@@ -123,7 +123,7 @@ public class ProductService {
     }
 
     public Product getProductsBySKU(UUID sku) throws Exception {
-        Product product = productRepository.getProductBySKU(sku);
+        Product product = productRepo.getProductBySKU(sku);
         if (product == null) {
             throw new Exception("No product found with SKU: " + sku);
         }
@@ -131,7 +131,7 @@ public class ProductService {
     }
 
     public List<Product> getProductsByCategory(String category) throws Exception {
-        List<Product> products = productRepository.getProductByCategory(category);
+        List<Product> products = productRepo.getProductByCategory(category);
         if (products.isEmpty()) {
             throw new Exception("No products found with the category: " + category);
         }
@@ -140,7 +140,7 @@ public class ProductService {
 
     // Method to fetch products with low stock (quantity less than 50)
     public List<Product> getLowStockProducts() {
-        List<Product> products = productRepository.findAll();
+        List<Product> products = productRepo.findAll();
         List<Product> lowStockProducts = new ArrayList<>();
         for (Product product : products) {
             if (product.getQuantity() < 50) {
