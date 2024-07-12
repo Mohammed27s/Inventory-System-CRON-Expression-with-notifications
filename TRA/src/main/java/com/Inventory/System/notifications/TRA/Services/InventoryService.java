@@ -28,7 +28,7 @@ public class InventoryService {
     private ProductRepo productRepo;
 
     // Method to receive new stock into inventory
-    public Inventory receiveStock(Inventory inventory) {
+    public Inventory saveInventory(Inventory inventory) {
         // Create new product details
         ProductDetails productDetails = new ProductDetails();
         productDetails.setName("TV");
@@ -121,4 +121,7 @@ public class InventoryService {
     public List<Inventory> getInventoriesByClosingHours(String closingHours) {
         return inventoryRepo.getInventoryByClosingHours(closingHours);
     }
+
+
 }
+

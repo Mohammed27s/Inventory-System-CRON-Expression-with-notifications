@@ -149,4 +149,20 @@ public class ProductService {
         }
         return lowStockProducts;
     }
+
+    public List<Product> getProductsByQuantity(Integer quantity) throws Exception {
+        List<Product> products = productRepo.getProductByQuantity(quantity);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with the quantity: " + quantity);
+        }
+        return products;
+    }
+
+    public List<Product> getProductsByIsActive(Boolean isActive) throws Exception {
+        List<Product> products = productRepo.getProductIsActive(isActive);
+        if (products.isEmpty()) {
+            throw new Exception("No products found with isActive: " + isActive);
+        }
+        return products;
+    }
 }
