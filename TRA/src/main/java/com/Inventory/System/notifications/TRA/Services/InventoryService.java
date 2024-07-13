@@ -31,9 +31,9 @@ public class InventoryService {
     public Inventory saveInventory(Inventory inventory) {
         // Create new product details
         ProductDetails productDetails = new ProductDetails();
-        productDetails.setName("TV");
-        productDetails.setColor("Black");
-        productDetails.setPrice(350d);
+        productDetails.setName("Nike");
+        productDetails.setColor("Red");
+        productDetails.setPrice(240d);
         productDetails.setCountryMade("UK");
         productDetails.setCreatedDate(new Date());
 
@@ -44,7 +44,7 @@ public class InventoryService {
         Product product = new Product();
         product.setProductDetails(productDetails);
         product.setSku(UUID.randomUUID());
-        product.setQuantity(100);
+        product.setQuantity(1000);
         product.setIsActive(Boolean.TRUE);
         product.setCreatedDate(new Date());
 
@@ -53,12 +53,12 @@ public class InventoryService {
 
         // Update inventory with the new product and other details
         inventory.setProducts((List<Product>) Arrays.asList(product));
-        inventory.setLocation("Muscat");
-        inventory.setManagerName("Ahmed");
-        inventory.setPhoneNumber("99999999");
-        inventory.setSupplier("ABC");
-        inventory.setOpeningHours("8 AM");
-        inventory.setClosingHours("8 PM");
+        inventory.setLocation("London");
+        inventory.setManagerName("Richard Hammond");
+        inventory.setPhoneNumber("+44 20 7123 4567");
+        inventory.setSupplier("DHL");
+        inventory.setOpeningHours("7 AM");
+        inventory.setClosingHours("6 PM");
         inventory.setCreatedDate(new Date());
         inventory.setIsActive(Boolean.TRUE);
 

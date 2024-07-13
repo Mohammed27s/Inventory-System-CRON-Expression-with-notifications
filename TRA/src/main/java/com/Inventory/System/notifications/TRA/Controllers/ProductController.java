@@ -202,7 +202,7 @@ public class ProductController {
                         .append(", Product: ").append(product.getProductDetails().getName())
                         .append(", Quantity: ").append(product.getQuantity()).append("\n");
             }
-            slackService.sendMessage("taiba", messageBuilder.toString());
+            slackService.sendMessage("Mohammed", messageBuilder.toString());
         }
         return lowStockProducts;
     }

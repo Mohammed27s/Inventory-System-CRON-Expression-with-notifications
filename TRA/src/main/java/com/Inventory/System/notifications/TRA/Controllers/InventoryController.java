@@ -26,7 +26,7 @@ public class InventoryController {
     private SlackService slackService;
 
     // Receive new stock
-    @PostMapping("receive")
+    @PostMapping("save")
     public Inventory receiveStock(@RequestBody Inventory inventory) {
         return inventoryService.saveInventory(inventory);
     }
@@ -96,8 +96,8 @@ public class InventoryController {
     public String sendEmail() {
         String toEmail = "recipient@example.com"; // replace with recipient's email
         String fromEmail = "mohd.com25@gmail.com"; // replace with sender's email
-        String emailBody = "This is a test email."; // replace with email body
-        String subject = "Test Email"; // replace with email subject
+        String emailBody = "Hello give be access to the database"; // replace with email body
+        String subject = "Need DataBase access"; // replace with email subject
         return mailingService.sendSimpleMail(toEmail, fromEmail, emailBody, subject);
     }
 }

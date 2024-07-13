@@ -30,19 +30,19 @@ public class OrderService {
         // Create a new product and product details
         Product product = new Product();
         ProductDetails productDetails = new ProductDetails();
-        productDetails.setName("Apple");
-        productDetails.setColor("Green");
-        productDetails.setSize("Small");
-        productDetails.setPrice(10d);
-        productDetails.setCountryMade("USA");
-        productDetails.setDescription("Apple Product");
+        productDetails.setName("Nike");
+        productDetails.setColor("red");
+        productDetails.setSize("Big");
+        productDetails.setPrice(240d);
+        productDetails.setCountryMade("UK");
+        productDetails.setDescription("Nike brand");
         productDetails.setCreatedDate(new Date());
         productDetails = productDetailsRepo.save(productDetails);
 
         // Configure the product
         product.setProductDetails(productDetails);
         product.setSku(UUID.randomUUID());
-        product.setCategory("Electronics");
+        product.setCategory("Sneaker");
         product.setQuantity(1);
         product.setIsActive(Boolean.TRUE);
         product.setCreatedDate(new Date());
@@ -50,7 +50,7 @@ public class OrderService {
 
         // Configure the order
         order.setProductsOrdered(Arrays.asList(product));
-        order.setCategoryName("Electronics");
+        order.setCategoryName("Sneaker");
         order.setCreatedDate(new Date());
         order.setOrderDate(new Date());
         order.setIsActive(Boolean.TRUE);
@@ -107,7 +107,7 @@ public class OrderService {
     public List<Order> getOrdersByCategoryName(String categoryName) throws Exception {
         List<Order> orders = orderRepo.getOrderByCategoryName(categoryName);
         if (orders.isEmpty()) {
-            throw new Exception("No orders found with the category name: " + categoryName);
+            throw new Exception("Order not found with the category name: " + categoryName);
         }
         return orders;
     }
@@ -116,7 +116,7 @@ public class OrderService {
     public List<Order> getOrdersByOrderStatus(OrderStatus status) throws Exception {
         List<Order> orders = orderRepo.getOrderByOrderStatus(status);
         if (orders.isEmpty()) {
-            throw new Exception("No orders found with the order status: " + status);
+            throw new Exception("Order not found with the order status: " + status);
         }
         return orders;
     }

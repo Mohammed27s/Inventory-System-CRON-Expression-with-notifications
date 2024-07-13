@@ -17,7 +17,7 @@ public class ReportingController {
     // Endpoint to generate an inventory report
     @GetMapping("report")
     public String reportInventory() {
-        StringBuilder report = new StringBuilder("************* Report *************\n");
+        StringBuilder report = new StringBuilder("The Report section \n");
 
         // Sort products by name
         List<Product> sortedProducts = globalInventoryItem.getProducts().stream()
@@ -43,7 +43,7 @@ public class ReportingController {
         StringBuilder productsInfo = new StringBuilder();
         for (Product product : products) {
             productsInfo.append("Name: ").append(product.getProductDetails().getName()).append("\n")
-                    .append("Country of Origin: ").append(product.getProductDetails().getCountryMade()).append("\n")
+                    .append("Country made: ").append(product.getProductDetails().getCountryMade()).append("\n")
                     .append("Description: ").append(product.getProductDetails().getDescription()).append("\n")
                     .append("Quantity: ").append(product.getQuantity()).append("\n")
                     .append("Category: ").append(product.getCategory()).append("\n")

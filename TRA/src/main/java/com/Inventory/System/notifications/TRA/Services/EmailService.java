@@ -49,7 +49,7 @@ public class EmailService {
             mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
             mimeMessageHelper.setFrom(sender);
             mimeMessageHelper.setTo("mohd.com25@gmail.com");
-            mimeMessageHelper.setText("Dear HR Manager" +
+            mimeMessageHelper.setText("Dear Hiring Manager" +
                     ", I want vacation before Eid for one week, " +
                     "sincerely, " +
                     "Mohammed Salim");

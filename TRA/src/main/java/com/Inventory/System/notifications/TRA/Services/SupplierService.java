@@ -27,23 +27,23 @@ public class SupplierService {
         // Create new contact details for the supplier
         ContactDetails contactDetails = new ContactDetails();
         contactDetails.setAddress("Muscat");
-        contactDetails.setEmail("bahwan@gmail.com");
-        contactDetails.setPhoneNumber("99999999");
-        contactDetails.setFaxNumber("22222");
-        contactDetails.setPostalCode("11111");
+        contactDetails.setEmail("example.admin@outlook.com");
+        contactDetails.setPhoneNumber("996345422");
+        contactDetails.setFaxNumber("67523");
+        contactDetails.setPostalCode("221145");
 
         // Save contact details and set them in the supplier
         contactDetails = contactDetailsRepo.save(contactDetails);
         supplier.setContactDetails(contactDetails);
 
         // Set other attributes for the supplier
-        supplier.setSupplierName("Bahwan");
-        supplier.setCountry("Oman");
+        supplier.setSupplierName("DHL");
+        supplier.setCountry("UK");
         supplier.setNextDeliveryTime(new Date());
-        supplier.setComplaints("no complaints");
+        supplier.setComplaints("no complaints yet");
         supplier.setPaymentMethods(PaymentType.BANK_TRANSFER);
-        supplier.setShippingMethods("Air Freight");
-        supplier.setMinimumOrderQuantity("100");
+        supplier.setShippingMethods("By Truck");
+        supplier.setMinimumOrderQuantity("1000");
         supplier.setIsActive(Boolean.TRUE);
 
         // Save the supplier and return the saved instance
@@ -58,7 +58,7 @@ public class SupplierService {
             supplierRepo.save(supplier);
             return "Success";
         } catch (Exception e) {
-            return "Failed to delete supplier with ID " + id + ": " + e.getMessage();
+            return "Failed to remove supplier with ID " + id + ": " + e.getMessage();
         }
     }
 
@@ -66,7 +66,7 @@ public class SupplierService {
     public String updateSupplier(Integer id) throws Exception {
         Supplier supplier = supplierRepo.getSupplierById(id);
         if (supplier == null) {
-            throw new Exception("Supplier not found with ID: " + id);
+            throw new Exception("Supplier not exists with ID: " + id);
         }
 
         // Update any necessary attributes of the supplier
@@ -84,7 +84,7 @@ public class SupplierService {
     public Supplier getSuppliersById(Integer id) throws Exception {
         Supplier supplier = supplierRepo.getSupplierById(id);
         if (supplier == null) {
-            throw new Exception("Supplier not found with ID: " + id);
+            throw new Exception("Supplier not exists with ID: " + id);
         }
         return supplier;
     }
@@ -93,7 +93,7 @@ public class SupplierService {
     public List<Supplier> getSuppliersByCompanyName(String companyName) throws Exception {
         List<Supplier> suppliers = supplierRepo.getSupplierByCompanyName(companyName);
         if (suppliers.isEmpty()) {
-            throw new Exception("No suppliers found with the company name: " + companyName);
+            throw new Exception("Supplier not found with the company name: " + companyName);
         }
         return suppliers;
     }
@@ -101,7 +101,7 @@ public class SupplierService {
     public List<Supplier> getSuppliersByCountry(String country) throws Exception {
         List<Supplier> suppliers = supplierRepo.getSupplierByCountry(country);
         if (suppliers.isEmpty()) {
-            throw new Exception("No suppliers found with the country: " + country);
+            throw new Exception("Supplier not found with the country: " + country);
         }
         return suppliers;
     }
@@ -109,7 +109,7 @@ public class SupplierService {
     public List<Supplier> getSuppliersByPaymentMethods(PaymentType paymentMethods) throws Exception {
         List<Supplier> suppliers = supplierRepo.getSupplierByPaymentMethods(paymentMethods);
         if (suppliers.isEmpty()) {
-            throw new Exception("No suppliers found with the payment methods: " + paymentMethods);
+            throw new Exception("Supplier not found with the payment methods: " + paymentMethods);
         }
         return suppliers;
     }
@@ -117,7 +117,7 @@ public class SupplierService {
     public List<Supplier> getSuppliersByShippingMethods(String shippingMethods) throws Exception {
         List<Supplier> suppliers = supplierRepo.getSupplierByShippingMethods(shippingMethods);
         if (suppliers.isEmpty()) {
-            throw new Exception("No suppliers found with the shipping methods: " + shippingMethods);
+            throw new Exception("Supplier not found with the shipping methods: " + shippingMethods);
         }
         return suppliers;
     }
@@ -125,7 +125,7 @@ public class SupplierService {
     public List<Supplier> getSuppliersByMinimumOrderQuantity(String minimumOrderQuantity) throws Exception {
         List<Supplier> suppliers = supplierRepo.getSupplierByMinimumOrderQuantity(minimumOrderQuantity);
         if (suppliers.isEmpty()) {
-            throw new Exception("No suppliers found with the minimum order quantity: " + minimumOrderQuantity);
+            throw new Exception("Supplier not found with the minimum order quantity: " + minimumOrderQuantity);
         }
         return suppliers;
     }

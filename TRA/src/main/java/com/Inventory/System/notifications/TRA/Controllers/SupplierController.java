@@ -30,7 +30,7 @@ public class SupplierController {
     }
 
     // Endpoint to update an existing supplier
-    @PutMapping("updateSupplier")
+    @PutMapping("update")
     public <T> ResponseEntity<T> updateSupplier(@RequestParam Integer id) {
         try {
             String result = supplierService.updateSupplier(id);
@@ -41,7 +41,7 @@ public class SupplierController {
     }
 
     // Endpoint to delete a supplier by ID
-    @PostMapping("delete")
+    @PostMapping("remove")
     public <T> ResponseEntity<T> delete(@RequestParam Integer id) {
         try {
             String result = supplierService.deleteSupplier(id);
@@ -52,7 +52,7 @@ public class SupplierController {
     }
 
     // Endpoint to get all suppliers
-    @GetMapping("getAll")
+    @GetMapping("allData")
     public List<SupplierDTO> getSupplier() {
         return supplierService.getSupplier();
     }
@@ -102,7 +102,7 @@ public class SupplierController {
     }
 
     // Endpoint to get suppliers by shipping methods
-    @GetMapping("getByShippingMethods")
+    @GetMapping("getByShipping")
     public <T> ResponseEntity<T> getSupplierByShippingMethods(@RequestParam String shippingMethods) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByShippingMethods(shippingMethods);
@@ -113,7 +113,7 @@ public class SupplierController {
     }
 
     // Endpoint to get suppliers by minimum order quantity
-    @GetMapping("getByMOQ")
+    @GetMapping("geQuantity")
     public <T> ResponseEntity<T> getSupplierByMinimumOrderQuantity(@RequestParam String minimumOrderQuantity) {
         try {
             List<Supplier> suppliers = supplierService.getSuppliersByMinimumOrderQuantity(minimumOrderQuantity);

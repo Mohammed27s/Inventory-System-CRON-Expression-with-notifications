@@ -32,7 +32,7 @@ public class InvoiceController {
     // Endpoint to create an invoice
     @PostMapping("createInvoice")
     public Invoice createInvoice(Invoice invoice) throws Exception {
-        slackService.sendMessage("taiba", "New invoice created");
+        slackService.sendMessage("mohammed", "Testing Slack");
         return invoiceService.createInvoice(invoice);
     }
 
@@ -48,13 +48,13 @@ public class InvoiceController {
                     .append(invoice.getId())
                     .append(" is due on ")
                     .append(invoice.getDueDate().toString());
-            slackService.sendMessage("practice", message.toString());
+            slackService.sendMessage("api testing", message.toString());
         }
     }
 
     // Scheduled task to generate a weekly invoice report
     @Scheduled(cron = "0 0 9 * * 0") // Runs every Sunday at 9:00 AM
-    @PostMapping("weeklyReport")
+    @PostMapping("The week Report list")
     public void weeklyInvoiceReport() {
         Date today = new Date();
         Date startDate = DateHelperUtils.subtractDays(today, 6); // Previous 7 days
@@ -64,7 +64,7 @@ public class InvoiceController {
         List<Invoice> overdueInvoices = invoiceService.getOverDueInvoices();
 
         StringBuilder report = new StringBuilder();
-        report.append("Weekly Summary Report:\n")
+        report.append("The Summary Report:\n")
                 .append("Invoices Created:\n");
         appendInvoicesToReport(report, createdInvoices);
         report.append("\nInvoices Paid:\n");
@@ -88,7 +88,7 @@ public class InvoiceController {
 
     // Scheduled task to generate a monthly invoice report
     @Scheduled(cron = "0 0 9 1 * ?") // Runs on the first day of every month at 9:00 AM
-    @PostMapping("monthlyReport")
+    @PostMapping("The month Report")
     public void monthlyInvoiceReport() {
         Calendar calendar = Calendar.getInstance();
         calendar.set(Calendar.DAY_OF_MONTH, 1); // First day of the current month
@@ -104,7 +104,7 @@ public class InvoiceController {
 
         StringBuilder report = new StringBuilder();
         SimpleDateFormat dateFormat = new SimpleDateFormat("MMMM yyyy");
-        report.append("Monthly Invoices Report - ")
+        report.append("The Month Invoice Report - ")
                 .append(dateFormat.format(startDate))
                 .append(":\n")
                 .append("Invoices Created:\n");
@@ -114,7 +114,7 @@ public class InvoiceController {
         report.append("\nOverdue Invoices:\n");
         appendInvoicesToReport(report, overdueInvoices);
 
-        slackService.sendMessage("practice", report.toString());
+        slackService.sendMessage("api test", report.toString());
 
     }
 

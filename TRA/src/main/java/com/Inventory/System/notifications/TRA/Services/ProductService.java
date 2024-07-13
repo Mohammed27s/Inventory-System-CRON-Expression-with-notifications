@@ -27,17 +27,17 @@ public class ProductService {
     public Product addProduct(Product product) {
         // Example of creating and saving product details
         ProductDetails productDetails = new ProductDetails();
-        productDetails.setName("Orange");
-        productDetails.setColor("Green");
-        productDetails.setSize("Small");
-        productDetails.setPrice(10d);
-        productDetails.setCountryMade("USA");
-        productDetails.setDescription("Apple Product");
+        productDetails.setName("Nike");
+        productDetails.setColor("red");
+        productDetails.setSize("Big");
+        productDetails.setPrice(240d);
+        productDetails.setCountryMade("UK");
+        productDetails.setDescription("Nike brand");
 
         productDetails = productDetailsRepo.save(productDetails);
         product.setProductDetails(productDetails);
         product.setSku(UUID.randomUUID());
-        product.setCategory("Electronics");
+        product.setCategory("Sneaker");
         product.setQuantity(1);
         product.setIsActive(Boolean.TRUE);
         product.setCreatedDate(new Date());
@@ -75,7 +75,7 @@ public class ProductService {
     public List<Product> getProductsByName(String name) throws Exception {
         List<Product> products = productRepo.getProductByName(name);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the name: " + name);
+            throw new Exception("Product not found with the name: " + name);
         }
         return products;
     }
@@ -85,7 +85,7 @@ public class ProductService {
     public List<Product> getProductsByColor(String color) throws Exception {
         List<Product> products = productRepo.getProductByColor(color);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the color: " + color);
+            throw new Exception("Product not found with the color: " + color);
         }
         return products;
     }
@@ -93,7 +93,7 @@ public class ProductService {
     public List<Product> getProductsBySize(String size) throws Exception {
         List<Product> products = productRepo.getProductBySize(size);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the size: " + size);
+            throw new Exception("Product not found with the size: " + size);
         }
         return products;
     }
@@ -101,7 +101,7 @@ public class ProductService {
     public Product getProductById(Integer id) throws Exception {
         Product product = productRepo.getProductById(id);
         if (product == null) {
-            throw new Exception("No product found with ID: " + id);
+            throw new Exception("Product not found with ID: " + id);
         }
         return product;
     }
@@ -109,7 +109,7 @@ public class ProductService {
     public List<Product> getProductsByPrice(Double price) throws Exception {
         List<Product> products = productRepo.getProductByPrice(price);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the price: " + price);
+            throw new Exception("Product not found with the price: " + price);
         }
         return products;
     }
@@ -117,7 +117,7 @@ public class ProductService {
     public List<Product> getProductsByCountryOfOrigin(String country) throws Exception {
         List<Product> products = productRepo.getProductByCountryOfOrigin(country);
         if (products.isEmpty()) {
-            throw new Exception("No products found from the country: " + country);
+            throw new Exception("Product not found from the country: " + country);
         }
         return products;
     }
@@ -125,7 +125,7 @@ public class ProductService {
     public Product getProductsBySKU(UUID sku) throws Exception {
         Product product = productRepo.getProductBySKU(sku);
         if (product == null) {
-            throw new Exception("No product found with SKU: " + sku);
+            throw new Exception("Product not found with SKU: " + sku);
         }
         return product;
     }
@@ -133,7 +133,7 @@ public class ProductService {
     public List<Product> getProductsByCategory(String category) throws Exception {
         List<Product> products = productRepo.getProductByCategory(category);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the category: " + category);
+            throw new Exception("Product not found with the category: " + category);
         }
         return products;
     }
@@ -153,7 +153,7 @@ public class ProductService {
     public List<Product> getProductsByQuantity(Integer quantity) throws Exception {
         List<Product> products = productRepo.getProductByQuantity(quantity);
         if (products.isEmpty()) {
-            throw new Exception("No products found with the quantity: " + quantity);
+            throw new Exception("Product not found with the quantity: " + quantity);
         }
         return products;
     }
@@ -161,7 +161,7 @@ public class ProductService {
     public List<Product> getProductsByIsActive(Boolean isActive) throws Exception {
         List<Product> products = productRepo.getProductIsActive(isActive);
         if (products.isEmpty()) {
-            throw new Exception("No products found with isActive: " + isActive);
+            throw new Exception("Product not found with isActive: " + isActive);
         }
         return products;
     }
